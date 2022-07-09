@@ -87,6 +87,39 @@ def tally():
   if len(sys.argv)==2 and sys.argv[1] == "-h":
     help()
 
+  dbfile = get_database_filename()
+  records = load_records(dbfile)
+  # count
+  count_true = {b: 0 for b in range(10)}
+  count_false = {b: 0 for b in range(10)}
+
+  for rec in records:
+    if not rec.is_resolved:
+      continue
+    p = rec.probability
+    v = rec.resolved_value
+    if p < 0.50: # fold down to 50%-100% interval
+      p = 1-p
+      v = not v
+
+    for b in range(5, 10):
+      if b*10 <= p and p < b*10+10:
+        if v == True:
+          count_true[b] += 1
+        else:
+          count_false[b] += 1
+  
+  for b in range(5,10):
+    ct = count_true[b]
+    cf = count_false[b]
+    
+    text = "%3d to %3d : %d Correct and %d Wrong" % (b*10,b*10+10,ct,cf)
+    if ct+cf > 0:
+      text += " (%3d %%)" % (round(100.0*ct/(ct+cf)))
+    else:
+      text += " ( -- %)"
+    
+    print(text)
 
 def help():
   """print help statement for all three commands"""
