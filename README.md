@@ -22,12 +22,12 @@ Notes:
 ```
 
 
-##Notes for Developers
+## Notes for Developers
 
 Afaik you should install with `pip install -E .` so that you can continously edit the source files. If you add new scripts to `pyproject.toml` then you need to run the install command again.
 
 Feel free to cold-message me if you start using this (or any work based on it). I am interested in reading even tiny pull requests / forks :)
 
-##Notes for Users
+## Notes for Users
 
 I wrote this as a half-day hobby project for myself, whilst making predictions for how much time I will actually need ;). I currently don't plan to invest more time into it, e.g. I don't want to read the XDG desktop standard to decide where to actually put the file, or figure out how to store settings for python programs, or what stuff would break when I switch to windows.
